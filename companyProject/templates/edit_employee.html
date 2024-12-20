@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee Details</title>
+</head>
+<body>
+
+    <h2>Edit Employee Details</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <h3>Update Email</h3>
+        {{ user_form.as_p }}  <!-- This renders the fields for User model (email, username, etc.) -->
+
+        <h3>Update Employee Information</h3>
+        {{ employee_form.as_p }}  <!-- This renders the fields for Employee model (position, salary, etc.) -->
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <br>
+
+    <!-- Delete Employee Option -->
+    <form method="POST" action="{% url 'delete_employee' pk=employee.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete Employee</button>
+    </form>
+
+    <br>
+
+    <!-- Back to Dashboard Button -->
+    <a href="{% url 'employee_dashboard' %}">Back to Dashboard</a>
+
+</body>
+</html>

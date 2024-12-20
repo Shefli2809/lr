@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <h2>Employees</h2>
+    <ul>
+        {% for employee in employees %}
+            <li>{{ employee.name }} - {{ employee.position }}</li>
+            <a href="{% url 'edit_employee' employee.id %}">Edit Employee</a>
+        {% endfor %}
+
+    </ul>
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

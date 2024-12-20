@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.first_name }}!</h1>
+
+    <h2>Your Details</h2>
+    <p>Email: {{ user.email }}</p>
+
+    {% if employee %}
+        <p>Position: {{ employee.position }}</p>
+        <p>Department: {{ employee.department }}</p>
+        <p>Salary: {{ employee.salary }}</p>
+    {% else %}
+        <p>Employee details not found.</p>
+    {% endif %}
+
+    <a href="{% url 'edit_profile' %}">Edit Profile</a> |
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
