@@ -34,8 +34,8 @@ Cost Minimization Approach
 
 
 
-Django Project Approach - Employee Management System
-This document outlines the approach for implementing an Employee Management System in Django. The system allows an admin user to create, edit, and delete employee records, while employees can edit their personal details. The implementation is done using Django views, forms, and templates.
+Django Project Approach - 
+The system allows an admin user to create, edit, and delete employee records, while employees can edit their personal details. The implementation is done using Django views, forms, and templates.
 Approach:
 1. Setup Django Project and App:
    - Created a Django project called "companyProject".
