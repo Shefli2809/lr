@@ -1,62 +1,133 @@
-Cost Minimization Approach
+# Cost Minimization Approach & Django Employee Management System
 
-1. Problem Overview:
-    The problem involves minimizing the cost of transporting goods based on available boxes with specific volumes and associated costs for different cities. 
-    Given a certain time and capacity, the task is to find the optimal way to fill the capacity with boxes that minimize the overall cost.
+This project consists of two parts:
 
-2. Steps Taken:
-    a. The initial input consists of time and capacity.
-    b. We have predefined data for different box types (XS, S, M, L, XL, XXL), each with a specified volume and cost for each city.
-    c. The cities we consider are: Delhi, Mumbai, Kolkata.
+1. **Cost Minimization Approach**: A solution to minimize the cost of transporting goods based on available boxes with different volumes and costs for different cities.
+2. **Django Project for Employee Management**: A web application to manage employee records, allowing admins to create, edit, and delete employee records, while employees can update their personal information.
 
-3. Cost Calculation:
-    a. For each city, I filter out boxes that have a "None" cost (i.e., unavailable boxes).
-    b. I then calculate the cost per volume ratio for the remaining boxes.
-    c. I sort these boxes based on the cost per unit volume in ascending order.
-    d. I then begin filling the remaining capacity with the sorted boxes, prioritizing cheaper boxes (lower cost per unit volume).
-    e. If the remaining capacity is not zero after filling it with available boxes, I add the box with the lowest cost to complete the capacity.
+## Table of Contents
 
-4. Dictionary for Storing Results:
-    a. I used a dictionary to store the boxes and their respective costs for each city, ensuring no redundant entries.
-    b. If a box type is used more than once to fill the capacity, it’s accounted for in the dictionary with the correct count of boxes.
+1. [Cost Minimization Approach](#cost-minimization-approach)
+    - [Problem Overview](#problem-overview)
+    - [Steps Taken](#steps-taken)
+    - [Cost Calculation](#cost-calculation)
+    - [Dictionary for Storing Results](#dictionary-for-storing-results)
+    - [Edge Cases](#edge-cases)
+    - [Code Summary](#code-summary)
+  
+2. [Django Employee Management System](#django-employee-management-system)
+    - [Project Setup](#project-setup)
+    - [Models](#models)
+    - [Authentication](#authentication)
+    - [CRUD Operations](#crud-operations)
+    - [Views and Templates](#views-and-templates)
+    - [Redirect After Save Changes](#redirect-after-save-changes)
+    - [Permissions and Access Control](#permissions-and-access-control)
 
-5. Edge Cases:
-    a. If either time or capacity is zero, I return zero costs for all cities.
-    b. If there’s no available box for the remaining capacity, I simply choose the one with the lowest cost to minimize the total cost.
+---
 
-6. Output:
-    The final result is a dictionary containing the total cost for each city, along with the number of boxes used for each box type.
+## Cost Minimization Approach
 
-7. Code Summary:
-    The function iterates through each city, processes the box data, and calculates the minimum cost while keeping track of the boxes chosen to fill the capacity.
+### Problem Overview
+The goal of this approach is to minimize the transportation cost for goods, given various boxes with different volumes and costs for different cities. The objective is to fill the given capacity optimally with the available boxes while minimizing the cost.
 
-    The approach ensures that we minimize the cost by filling the remaining capacity with the most cost-effective boxes, and also handles edge cases like zero capacity or time.
+### Steps Taken
+1. **Input**: The system takes in the transportation time and capacity.
+2. **Box Types**: The boxes come in predefined sizes (XS, S, M, L, XL, XXL), each associated with a cost and volume for each city.
+3. **Cities**: The cities considered in this system are **Delhi**, **Mumbai**, and **Kolkata**.
+4. **Cost Minimization**: The algorithm:
+   - Filters out boxes with no cost (i.e., unavailable boxes).
+   - Calculates the cost per unit volume for each available box.
+   - Sorts the boxes based on their cost-efficiency (lowest cost per unit volume).
+   - Fills the capacity with the cheapest boxes until it's full.
+   - If there’s remaining capacity, it adds the box with the lowest cost to complete the capacity.
 
+### Cost Calculation
+- **Cost per Volume Ratio**: For each box in a city, we compute the cost per volume (i.e., `cost/volume`).
+- **Sorting Boxes**: We prioritize filling the capacity with boxes that have the lowest cost per volume.
+- **Filling Capacity**: Start with the cheapest box and fill the remaining capacity. If the remaining capacity is non-zero, the algorithm selects the lowest-cost box to complete the remaining volume.
 
+### Dictionary for Storing Results
+- The program uses a dictionary to store box types and their respective costs for each city.
+- It ensures no redundant entries are stored and keeps track of the number of boxes used to fill the total capacity.
 
-Django Project Approach - 
-The system allows an admin user to create, edit, and delete employee records, while employees can edit their personal details. The implementation is done using Django views, forms, and templates.
-Approach:
-1. Setup Django Project and App:
-   - Created a Django project called "companyProject".
-   - Created an app called "companyApp" to handle the employee management system.
-2. Models:
-   - Created two models, "Employee" and "User", to store employee information and user account details.
-   - Established a one-to-one relationship between the Employee model and Django's default User model.
-3. Authentication:
-   - Utilized Django's built-in authentication system to handle user login and permissions.
-   - Users can log in using their email and password. Admins can manage employees via the Django admin interface.
-4. CRUD Operations for Employees:
-   - Admin users have the ability to create, read, update, and delete employee records via the Django admin interface.
-   - A custom view was created to allow employees to edit their personal details (e.g., email, position, etc.) via a form.
-   - The admin user can also edit employee details through a dedicated employee edit page.
-5. Views and Templates:
-   - The system includes several views for managing employee data, including a dashboard, login, and employee profile editing pages.
-   - Django templates are used to display employee details and forms for editing.
-   - Admins can use the employee edit page to change employee details and a "Save Changes" button redirects to the admin dashboard after updates.
-6. Redirect After Save Changes:
-   - After making changes to an employee's details, admins are redirected to the admin dashboard to ensure seamless workflow.
-   - The edit_employee view checks the form submission and performs a redirect using Django's redirect function.
-7. Handling Permissions and Access Control:
-   - Ensured that only logged-in users can access the edit profile and employee management views.
-   - The view uses the @login_required decorator to prevent unauthorized access.
+### Edge Cases
+- If the **time** or **capacity** is zero, the system returns zero costs for all cities.
+- If there’s no available box that fits the remaining capacity, it chooses the box with the lowest cost to minimize the total cost.
+
+### Code Summary
+The algorithm iterates over each city, processes the box data, calculates the minimum cost, and tracks the number of boxes used. This ensures an optimal and cost-effective way to fill the transportation capacity while handling edge cases.
+
+---
+
+## Django Employee Management System
+
+### Project Setup
+1. **Django Project Setup**:
+   - The project is named `companyProject`.
+   - An app called `companyApp` handles employee management functionalities.
+  
+2. **App Structure**:
+   - The main application (`companyApp`) manages the employee-related models, views, and templates.
+   - The project utilizes Django's built-in authentication system for managing users and employee data.
+
+### Models
+1. **Employee Model**: Stores employee information (e.g., name, position, salary).
+2. **User Model**: Uses Django’s default `User` model to manage user accounts.
+3. **Relationship**: A one-to-one relationship is established between the `Employee` model and Django's default `User` model.
+
+### Authentication
+1. **Login System**: Employees and admins can log in using their email and password.
+2. **Admin Interface**: Admins can manage employees through the Django admin interface, which provides full CRUD functionality (create, read, update, delete).
+
+### CRUD Operations
+1. **Admin CRUD Operations**:
+   - Admin users can create, read, update, and delete employee records via the Django admin interface.
+2. **Employee Profile Editing**:
+   - Employees can edit their personal information (e.g., email, position) via a custom form.
+3. **Admin Edit**:
+   - Admins can modify employee details on a dedicated employee edit page.
+
+### Views and Templates
+1. **Dashboard**:
+   - A user-friendly dashboard for both admins and employees to manage their profile and employee records.
+2. **Edit Profile**:
+   - Employees can edit their profile using a form linked to their account.
+3. **Admin Dashboard**:
+   - Admins have a special dashboard for managing employee records.
+4. **Templates**:
+   - Django templates are used to render views for displaying employee details and forms.
+
+### Redirect After Save Changes
+1. **Admin Redirection**:
+   - After updating an employee’s details, admins are redirected to the admin dashboard.
+   - The system uses Django’s `redirect()` function to handle post-update redirection.
+  
+### Permissions and Access Control
+1. **Access Control**:
+   - The `@login_required` decorator ensures that only logged-in users can access certain views, such as employee profile editing or employee management by admins.
+2. **Authorization**:
+   - Different user roles (admin, employee) have different levels of access to views and functionalities.
+
+---
+
+## How to Run the Projects
+
+### Cost Minimization Approach
+1. **Input Data**:
+   - Provide the time and capacity along with the box data (volume, cost for each city).
+2. **Run the Algorithm**:
+   - The algorithm will compute the minimum cost for transporting goods.
+
+### Django Employee Management System
+1. **Setup Django**:
+   - Install Django: `pip install django`
+   - Create a project and app: `django-admin startproject companyProject` and `python manage.py startapp companyApp`
+2. **Database Migrations**:
+   - Run migrations: `python manage.py migrate`
+3. **Create Superuser**:
+   - Create an admin user to access the Django admin interface: `python manage.py createsuperuser`
+4. **Run Server**:
+   - Start the development server: `python manage.py runserver`
+
+---
